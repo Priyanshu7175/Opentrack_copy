@@ -211,12 +211,15 @@ public class PreferencesUtils {
 
     public static UnitSystem getUnitSystem() {
         final String STATS_UNIT_DEFAULT = resources.getString(R.string.stats_units_default);
-
         final String VALUE = getString(R.string.stats_units_key, STATS_UNIT_DEFAULT);
+
+        // Define the default UnitSystem only once
+        UnitSystem defaultUnitSystem = UnitSystem.METRIC;
+
         return Arrays.stream(UnitSystem.values())
                 .filter(d -> VALUE.equals(resources.getString(d.getPreferenceId(), STATS_UNIT_DEFAULT)))
                 .findFirst()
-                .orElse(UnitSystem.defaultUnitSystem()); //TODO This AGAIN defines the default
+                .orElse(defaultUnitSystem);
     }
 
     public static void setUnit(UnitSystem unitSystem) {
